@@ -1,0 +1,7 @@
+<div *ngFor="let message of messages | async">
+    {{ message | json}}
+</div>
+
+<button (click)="addMessage()">
+    ADD a Message
+</button>
