@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
     selector: 'cs-chat-window',
     templateUrl: './chat-window.component.html',
     styleUrls: ['./chat-window.component.scss'],
-    providers: [MessagesService]
+    // providers: [MessagesService]
 })
 export class ChatWindowComponent implements OnInit {
     messages: Observable<Array<Message>>;
@@ -21,7 +21,7 @@ export class ChatWindowComponent implements OnInit {
 
     addMessage() {
         const user = new User('Michael', 0)
-        this.messagesService.addMessage(new Message('Hello', user, 0));
+        this.messagesService.sendMessage(new Message('Hello', user, 0));
     }
 
 }
