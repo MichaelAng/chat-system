@@ -4,6 +4,7 @@
         <input class="col-12" type="text" [formControl]="input" (keyup)='keyUp.next($event)'>
     </div>
 
+    <div class="row" *ngIf="isTyping">Someone is typing</div>
     <div class="row chat-window">
         <div class="col-7 message-container"
             [ngClass]="{'ml-auto': message[0].user.name === user.name }"

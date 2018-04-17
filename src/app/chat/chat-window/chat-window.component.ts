@@ -22,6 +22,7 @@ export class ChatWindowComponent implements OnInit {
     messages: Observable<Array<Message>>;
     keyUp = new Subject<any>();
     input: FormControl = new FormControl('');
+    isTyping: any;
 
     constructor(
         private messagesService: MessagesService
@@ -30,15 +31,31 @@ export class ChatWindowComponent implements OnInit {
     ngOnInit() {
         this.messages = this.messagesService.getMessages();
 
+        this.messagesService.getIsTyping()
+            .filter(isTypingObj => isTypingObj.user.name !== this.user.name)
+            .map(isTypingObj=> isTypingObj.status)
+            .subscribe(status => this.isTyping = status);
+
+
         this.keyUp
             .filter(event => event.key === 'Enter')
             .map(event => event.target.value)
             .debounceTime(100)
             .subscribe(message => this.sendMessage(message));
+
+        this.keyUp
+            .map(event => {
+                console.log(event);
+                return event.target.value
+            })
+            .subscribe(message => {
+                this.messagesService.sendIsTyping(message !== '', this.user)
+            });
     }
 
     sendMessage(message: string) {
         this.input.reset();
+        this.keyUp.next({ target: {value: ''} });
         this.messagesService.sendMessage(new Message(message, this.user))
     }
 

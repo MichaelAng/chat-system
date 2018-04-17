@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class BackendService {
     messages$: Subject<any> = new Subject();
+    isTyping$: Subject<any> = new Subject();
 
     constructor() { }
 
@@ -19,5 +20,12 @@ export class BackendService {
         this.messages$.next(message);
     }
 
+    setIsTyping(status, user) {
+        this.isTyping$.next({status: status, user: user});
+    }
+
+    getIsTyping() {
+        return this.isTyping$;
+    }
 
 }
