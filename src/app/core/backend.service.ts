@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import "rxjs/add/operator/delay";
 
 import { scan, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';

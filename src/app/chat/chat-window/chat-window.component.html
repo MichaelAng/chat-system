@@ -1,7 +1,11 @@
-<div *ngFor="let message of messages | async">
-    {{ message | json}}
+<div class="row">
+    <div class="col-7 message-container"
+        [ngClass]="{'ml-auto': message[0].user.name === user.name }"
+        *ngFor="let message of messages | async">
+        <div class="message">{{ message[0].user.name }}: {{ message[0].message }}</div>
+    </div>
 </div>
 
-<button (click)="addMessage()">
-    ADD a Message
-</button>
+<div class="row">
+    <input class="col-12" type="text" [formControl]="input" (keyup)='keyUp.next($event)'>
+</div>
